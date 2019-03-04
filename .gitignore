@@ -1,3 +1,4 @@
 env
 .gitignore
 .vscode
+docker-compose.yml
