@@ -8,11 +8,26 @@ from PIL import Image, ImageDraw, ImageFont
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 FONT_URL = os.environ["FONT_URL"]
+FONT_PATH = "font.tiff"
+TMP_IMAGE_PATH = "tmp.png"
 
 # get font from remote
 if len(FONT_URL) > 0:
     print("font download from %s" % FONT_URL)
-    urllib.request.urlretrieve(FONT_URL, "font.tiff")
+    urllib.request.urlretrieve(FONT_URL, FONT_PATH)
+
+def make_image(text, font_size=32, font_color="white"):
+    font = ImageFont.truetype(FONT_PATH, font_size)
+    # get fontsize
+    tmp = Image.new('RGBA', (1, 1), (0, 0, 0, 0)) # dummy for get text_size
+    tmp_d = ImageDraw.Draw(tmp)
+    text_size = tmp_d.textsize(text, font) # (width, heightが手に入る)
+    # draw text
+    img = Image.new('RGBA', text_size, (0, 0, 0, 0)) # background: transparent
+    img_d = ImageDraw.Draw(img)
+    img_d.text((0, 0), text, fill=font_color, font=font)
+    img.save(TMP_IMAGE_PATH)
+
 
 bot = commands.Bot(command_prefix='$')
 
@@ -69,5 +84,9 @@ async def buki():
 ```\
         ''' % (b["name"][region], b["sub"]["name"][region], b["special"]["name"][region]))
 
+@bot.command(pass_context=True)
+async def moji(ctx, str):
+    make_image(str)
+    await bot.send_file(ctx.message.channel, TMP_IMAGE_PATH)
 
 bot.run(BOT_TOKEN)

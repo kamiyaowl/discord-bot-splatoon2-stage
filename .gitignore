@@ -2,4 +2,4 @@ env
 .gitignore
 .vscode
 font.tiff
-docker-compose.yml
+*.png

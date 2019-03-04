@@ -1,0 +1,7 @@
+ikanostage:
+  build: ./
+  volumes:
+    - ./:/app # for debug, source-code reload
+  environment: 
+    - BOT_TOKEN=
+    - FONT_URL=
