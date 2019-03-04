@@ -4,8 +4,15 @@ import urllib.request
 import json
 import os
 import random
+from PIL import Image, ImageDraw, ImageFont
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
+FONT_URL = os.environ["FONT_URL"]
+
+# get font from remote
+if len(FONT_URL) > 0:
+    print("font download from %s" % FONT_URL)
+    urllib.request.urlretrieve(FONT_URL, "font.tiff")
 
 bot = commands.Bot(command_prefix='$')
 
