@@ -8,11 +8,11 @@ from PIL import Image, ImageDraw, ImageFont
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 FONT_URL = os.environ["FONT_URL"]
-FONT_PATH = "font.tiff"
+FONT_PATH = "font.tff"
 TMP_IMAGE_PATH = "tmp.png"
 
 # get font from remote
-if len(FONT_URL) > 0:
+if (len(FONT_URL) > 0) and not(os.path.exists(FONT_PATH)):
     print("font download from %s" % FONT_URL)
     urllib.request.urlretrieve(FONT_URL, FONT_PATH)
 

@@ -1,5 +1,5 @@
 env
 .gitignore
 .vscode
-font.tiff
+*.tff
 *.png
