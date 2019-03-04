@@ -11,6 +11,7 @@ bot = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
+    print("== ikanostage ==")
     print(bot.user.name)
     print(bot.user.id)
 
